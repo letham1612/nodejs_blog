@@ -1,10 +1,17 @@
+const Course = require('../models/Course');
+
 class SiteController {
-    //{GET}/
-    index(req, res) {
-        res.render('home');
+    // {GET}/
+    async index(req, res) {
+        try {
+            const courses = await Course.find({}); // Sử dụng await
+            res.json(courses); // Trả về danh sách khóa học
+        } catch (err) {
+            res.status(400).json({ error: 'ERROR!!!' }); // Xử lý lỗi
+        }
     }
 
-    //{GET} /search
+    // {GET} /search
     search(req, res) {
         res.render('search');
     }

@@ -1,29 +1,26 @@
 const path = require('path');
 const express = require('express');
 const morgan = require('morgan');
-const {engine} = require('express-handlebars');
-//const events = require('events');
+const { engine } = require('express-handlebars');
 const app = express();
 const port = 3000;
 
+// Import route từ file routes
+const route = require('./routes');
+
 app.use(express.static(path.join(__dirname, 'public')));
 
-// HTTP logger
-app.use(morgan('combined'));
+app.use(express.urlencoded({
+  extended: true // Fix the typo: "extends" to "extended"
+}));
+
+app.use(express.json());
 
 // Template engine
-app.engine('.hbs', engine({extname: '.hbs'}));
+app.engine('.hbs', engine({ extname: '.hbs' }));
 app.set('view engine', 'hbs');
 
-// Thiết lập đường dẫn cho các file template
 app.set('views', path.join(__dirname,'./resources/views'));
-//console.log('Views directory:', path.join(__dirname, '..', 'resources', './views'));
-
-
-
-app.get('/', (req, res) => {
-  res.render( "home"); 
-});
 
 app.get('/news', (req, res) => {
   res.render( "news"); 

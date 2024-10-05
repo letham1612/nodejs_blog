@@ -22,10 +22,10 @@ app.set('view engine', 'hbs');
 
 app.set('views', path.join(__dirname,'./resources/views'));
 
-app.get('/news', (req, res) => {
-  res.render( "news"); 
-});
+route(app);
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });
+
+
